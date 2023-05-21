@@ -1,8 +1,6 @@
->📋  A template README.md for code accompanying a Machine Learning paper
-
 # GenerateCT: Text-Guided 3D Chest CT Generation
 
-This repository is the official implementation of [My Paper Title](https://arxiv.org/abs/2030.12345). 
+This repository is the official implementation of GenerateCT. 
 
 >📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
 
@@ -46,13 +44,19 @@ You can download pretrained models here:
 
 ## Results
 
-Our model achieves the following performance on :
+Our models achieves the following performances :
 
-### [Image Classification on ImageNet](https://paperswithcode.com/sota/image-classification-on-imagenet)
+### Quantitative Results for GenerateCT and Its Components.
 
-| Model name         | Top 1 Accuracy  | Top 5 Accuracy |
-| ------------------ |---------------- | -------------- |
-| My awesome model   |     85%         |      95%       |
+|                    | Output Features |                  |                  |           Metrics            |           |             |
+|--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
+|                    |   Resolution    |    Dimension     |    Text-Guided   |        FID (↓)               |  FVD (↓)  |  CLIP (↑)   |
+|--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
+|      CT-ViT        |       128       |       3D         |        No        |         73.4                 |   1817.4  |    N/A      |
+|   Transformer      |       128       |       3D         |        Yes       |        104.3                 |   1886.8  |    25.2     |
+|     Diffusion      |       512       |       2D         |        Yes       |         14.9                 |   409.8   |    27.6     |
+|   **GenerateCT**   |       512       |       3D         |        Yes       |         55.8                 |   1092.3  |    27.1     |
+
 
 >📋  Include a table of results from your paper, and link back to the leaderboard for clarity and context. If your main result is a figure, include that figure and link to the command or notebook to reproduce it. 
 
