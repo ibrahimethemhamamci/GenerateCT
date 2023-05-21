@@ -61,5 +61,5 @@ Our work, including the codes, trained models, and generated data, is released u
 
 
 ## Acknowledgements
-We would like to express our gratitude to the following repositories for their invaluable contributions to our work: https://github.com/lucidrains/phenaki-pytorch, https://github.com/LAION-AI/phenaki, https://github.com/lucidrains/imagen-pytorch, and https://github.com/rachellea/ct-net-models. We extend our sincere appreciation to these researchers for their exceptional open-source efforts. If you utilize our models and code, we kindly request that you also consider citing these works to acknowledge their contributions.
+We would like to express our gratitude to the following repositories for their invaluable contributions to our work: [Phenaki Pytorch by Lucidrains](https://github.com/lucidrains/phenaki-pytorch), [Phenaki by LAION-AI](https://github.com/LAION-AI/phenaki), [Imagen Pytorch by Lucidrains](https://github.com/lucidrains/imagen-pytorch), and [CT Net Models by Rachellea](https://github.com/rachellea/ct-net-models). We extend our sincere appreciation to these researchers for their exceptional open-source efforts. If you utilize our models and code, we kindly request that you also consider citing these works to acknowledge their contributions.
 
