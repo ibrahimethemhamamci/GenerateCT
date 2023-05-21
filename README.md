@@ -44,7 +44,7 @@ You can download pretrained models here:
 
 ## Results
 
-Our models achieves the following performances :
+Our models achieve the following performances :
 
 |                    |   Resolution    |    Dimension     |    Text-Guided   |        FID (↓)               |  FVD (↓)  |  CLIP (↑)   |
 |--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
