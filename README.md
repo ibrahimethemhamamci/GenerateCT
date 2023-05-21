@@ -61,5 +61,5 @@ Our work, including the codes, trained models, and generated data, is released u
 
 
 ## Acknowledgements
-Our work is based on following repositories, https://github.com/rachellea/ct-net-models, [My awesome model](https://drive.google.com/mymodel.pth), [My awesome model](https://drive.google.com/mymodel.pth), [My awesome model](https://drive.google.com/mymodel.pth), [My awesome model](https://drive.google.com/mymodel.pth), [My awesome model](https://drive.google.com/mymodel.pth).We thank all researchers for their opensource effort. If you use our models Phenaki and code, please consider citing these works as well.
+We would like to express our gratitude to the following repositories for their invaluable contributions to our work: https://github.com/lucidrains/phenaki-pytorch, https://github.com/LAION-AI/phenaki, https://github.com/lucidrains/imagen-pytorch, and https://github.com/rachellea/ct-net-models. We extend our sincere appreciation to these researchers for their exceptional open-source efforts. If you utilize our models and code, we kindly request that you also consider citing these works to acknowledge their contributions.
 
