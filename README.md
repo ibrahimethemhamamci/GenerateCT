@@ -46,9 +46,6 @@ You can download pretrained models here:
 
 Our models achieves the following performances :
 
-### Quantitative Results for GenerateCT and Its Components.
-
-
 |                    |   Resolution    |    Dimension     |    Text-Guided   |        FID (↓)               |  FVD (↓)  |  CLIP (↑)   |
 |--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
 |      CT-ViT        |       128       |       3D         |        No        |         73.4                 |   1817.4  |    N/A      |
