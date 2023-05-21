@@ -43,6 +43,10 @@ You can download pretrained models here:
 
 >📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
 
+## Inference
+
+>📋  Give an explanation on how to get inference using pre-trained models.
+
 ## Results
 
 Our models achieve the following performances :
