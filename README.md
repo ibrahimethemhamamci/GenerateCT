@@ -1,6 +1,6 @@
 # GenerateCT: Text-Guided 3D Chest CT Generation
 
-Welcome to the official repository of GenerateCT, a pioneering work in text-conditional 3D medical image generation, with a particular focus on chest CT volumes. Here, you will find the code and model for text-to-CT generation, all freely accessible for researchers.
+Welcome to the official repository of GenerateCT, a pioneering work in text-conditional 3D medical image generation, with a particular focus on chest CT volumes. Here, you will find the code and all models for text-to-CT generation, all freely accessible for researchers.
 
 
 >📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
