@@ -3,7 +3,7 @@
 Welcome to the official repository of GenerateCT, a pioneering work in text-conditional 3D medical image generation, with a particular focus on chest CT volumes. Here, you will find the code and all models for text-to-CT generation, all freely accessible for researchers.
 
 
->📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
+>!Text-conditional chest CT volume generation.](Assets/generated_ct_volumes.gif)
 
 ## Requirements
 
