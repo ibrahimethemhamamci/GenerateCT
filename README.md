@@ -37,7 +37,11 @@ accelerate launch train_transformer.py
 To train the super resolution model in the paper, run this command:
 
 ```train
-accelerate launch --multi_gpu --mixed_precision=fp16 --num_machines=1 train_superres.py --config superres.yaml --stage 2 --bs 8
+accelerate launch \
+    --multi_gpu \
+    --mixed_precision=fp16 \
+    --num_machines=1 \
+    train_superres.py --config superres.yaml --stage 2 --bs 8
 ```
 
 >📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
