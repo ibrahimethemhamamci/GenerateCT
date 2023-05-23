@@ -222,7 +222,7 @@ def restore_parts(state_dict_target, state_dict_from):
     return state_dict_target
 
 
-class SuperresTrainer(nn.Module):
+class SuperResolutionTrainer(nn.Module):
     locked = False
 
     def __init__(
@@ -255,7 +255,7 @@ class SuperresTrainer(nn.Module):
         **kwargs
     ):
         super().__init__()
-        assert not SuperresTrainer.locked, 'SuperResolutionTrainer can only be initialized once per process - for the sake of distributed training, you will now have to create a separate script to train each unet (or a script that accepts unet number as an argument)'
+        assert not SuperResolutionTrainer.locked, 'SuperResolutionTrainer can only be initialized once per process - for the sake of distributed training, you will now have to create a separate script to train each unet (or a script that accepts unet number as an argument)'
         assert exists(superres) ^ exists(superres_checkpoint_path), 'either superresolution instance is passed into the trainer, or a checkpoint path that contains the superresolution config'
 
         # determine filesystem, using fsspec, for saving to local filesystem or cloud
@@ -286,7 +286,7 @@ class SuperresTrainer(nn.Module):
             'kwargs_handlers': [DistributedDataParallelKwargs(find_unused_parameters = True)]
         , **accelerate_kwargs})
 
-        SuperresTrainer.locked = self.is_distributed
+        SuperResolutionTrainer.locked = self.is_distributed
 
         # cast data to fp16 at training time if needed
 
@@ -376,7 +376,7 @@ class SuperresTrainer(nn.Module):
 
         # automatic set devices based on what accelerator decided
 
-        self.superresolution.to(self.device)
+        self.superres.to(self.device)
         self.to(self.device)
 
         # checkpointing
@@ -945,7 +945,7 @@ class SuperresTrainer(nn.Module):
 
     @torch.no_grad()
     @cast_torch_tensor
-    @superres_sample_in_chunks
+    @super_resolution_sample_in_chunks
     def sample(self, *args, **kwargs):
         context = nullcontext if  kwargs.pop('use_non_ema', False) else self.use_ema_unets
 

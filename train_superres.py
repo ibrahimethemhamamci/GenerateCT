@@ -10,7 +10,7 @@ import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
-from super_resolution import Unet, ElucidatedSuperres, SuperresTrainer, Superres, NullUnet
+from super_resolution import Unet, ElucidatedSuperres, SuperResolutionTrainer, Superres, NullUnet
 from transformer_maskgit.videotextdatasetsuperres import VideoTextDataset
 import nibabel as nib
 import numpy
@@ -121,12 +121,12 @@ if __name__ == "__main__":
         **OmegaConf.to_container(config.superres.params), # type: ignore
     )
 
-    trainer = SuperresTrainer(
+    trainer = SuperResolutionTrainer(
         superres = superres,
         **config.trainer.params,
     ).to(device)
     # Create datasets
-    train_ds=VideoTextDataset(data_folder='example_data/ctvit-transformer', xlsx_file='ctvit-transformer/data_reports.xlsx', num_frames=2)
+    train_ds=VideoTextDataset(data_folder='example_data/ctvit-transformer', xlsx_file='example_data/data_reports.xlsx', num_frames=2)
     trainer.add_train_dataset(
         train_ds, 
         **config.dataloader.params, # type: ignore
@@ -145,8 +145,8 @@ if __name__ == "__main__":
     trainer.accelerator.wait_for_everyone()
 
     # Resume training if requested and possible
-    if args.resume == 'auto' and len(os.listdir(os.path.join("scratch/superres/ct_stage2", "models"))) > 0:
-        checkpoints = sorted(os.listdir(os.path.join("scratch/superres/ct_stage2", "models")))
+    if args.resume == 'auto' and os.path.isdir("superres/ct_stage2") and len(os.listdir(os.path.join("superres/ct_stage2", "models"))) > 0:
+        checkpoints = sorted(os.listdir(os.path.join("superres/ct_stage2", "models")))
         weight_path = os.path.join("models", checkpoints[-1])
         trainer.accelerator.print(f"Resuming training from {weight_path}")
         additional_data = trainer.load(weight_path)

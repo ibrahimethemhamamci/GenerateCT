@@ -300,7 +300,10 @@ class TransformerTrainer(nn.Module):
                     is_video = valid_data.ndim == 5
                     #valid_data = valid_data.cuda()
 
-                    recons = model.module.sample(texts =text, num_frames = 201, cond_scale = 5.) # (1, 3, 17, 256, 128)
+                    if "module" in model.__dict__:
+                        model = model.module
+                        
+                    recons = model.sample(texts =text, num_frames = 201, cond_scale = 5.) # (1, 3, 17, 256, 128)
 
 
                     # if is video, save gifs to folder

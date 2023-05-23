@@ -10,7 +10,7 @@ import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
-from super_resolution import Unet, ElucidatedSuperres, SuperresTrainer, Superres, NullUnet
+from super_resolution import Unet, ElucidatedSuperres, SuperResolutionTrainer, Superres, NullUnet
 #from diffusion_sandbox.dataset import iFindUnc
 from transformer_maskgit.videotextdatasettransformersuperres import VideoTextDataset
 import nibabel as nib
@@ -123,7 +123,7 @@ if __name__ == "__main__":
         **OmegaConf.to_container(config.superres.params), # type: ignore
     )
 
-    trainer = SuperresTrainer(
+    trainer = SuperResolutionTrainer(
         superres = superres,
         **config.trainer.params,
     ).to(device)

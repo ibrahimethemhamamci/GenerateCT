@@ -1914,8 +1914,7 @@ class Superres(nn.Module):
 
         # determine whether we are training on images or video
 
-        is_video = any([isinstance(unet) for unet in self.unets])
-        self.is_video = is_video
+        self.is_video = is_video = False
 
         self.right_pad_dims_to_datatype = partial(rearrange, pattern = ('b -> b 1 1 1' if not is_video else 'b -> b 1 1 1 1'))
 
@@ -2548,7 +2547,7 @@ class Superres(nn.Module):
         # self condition if needed
 
         # Because 'unet' can be an instance of DistributedDataParallel coming from the
-        # SuperresTrainer.unet_being_trained when invoking SuperresTrainer.forward(), we need to
+        # SuperResolutionTrainer.unet_being_trained when invoking SuperResolutionTrainer.forward(), we need to
         # access the member 'module' of the wrapped unet instance.
         self_cond = unet.module.self_cond if isinstance(unet, DistributedDataParallel) else unet.self_cond
 

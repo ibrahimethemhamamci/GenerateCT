@@ -3,7 +3,7 @@ from torch import nn
 from functools import reduce
 from pathlib import Path
 
-from superres_pytorch.configs import SuperresConfig, ElucidatedSuperresConfig
+from super_resolution.configs import SuperresConfig, ElucidatedSuperresConfig
 from ema_pytorch import EMA
 
 def exists(val):

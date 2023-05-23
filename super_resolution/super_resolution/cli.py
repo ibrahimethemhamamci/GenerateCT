@@ -6,7 +6,7 @@ import pkgutil
 from super_resolution import load_superresolution_from_checkpoint
 from super_resolution.data import Collator
 from super_resolution.utils import safeget
-from super_resolution import SuperresTrainer, ElucidatedSuperresConfig, SuperresConfig
+from super_resolution import SuperResolutionTrainer, ElucidatedSuperresConfig, SuperresConfig
 from datasets import load_dataset
 
 import json
@@ -97,7 +97,7 @@ def train(
     superres_config_klass = ElucidatedSuperresConfig if config_data['type'] == 'elucidated' else SuperresConfig
     superres = superres_config_klass(**config_data['superres']).create()
 
-    trainer = SuperresTrainer(
+    trainer = SuperResolutionTrainer(
     superres = superres,
         **config_data['trainer']
     )

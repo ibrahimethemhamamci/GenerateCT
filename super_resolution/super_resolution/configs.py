@@ -3,10 +3,10 @@ from pydantic import BaseModel, validator, root_validator
 from typing import List, Iterable, Optional, Union, Tuple, Dict, Any
 from enum import Enum
 
-from super_resolution.superres_pytorch import Superres, Unet, Unet3D, NullUnet
+from super_resolution.superres_pytorch import Superres, Unet, NullUnet
 from super_resolution.trainer import SuperResolutionTrainer
 from super_resolution.elucidated_superres import ElucidatedSuperres
-from superres_pytorch.t5 import DEFAULT_T5_NAME, get_encoded_dim
+from super_resolution.t5 import DEFAULT_T5_NAME, get_encoded_dim
 
 # helper functions
 
@@ -53,20 +53,8 @@ class UnetConfig(AllowExtraBaseModel):
     def create(self):
         return Unet(**self.dict())
 
-class Unet3DConfig(AllowExtraBaseModel):
-    dim:                int
-    dim_mults:          ListOrTuple(int)
-    text_embed_dim:     int = get_encoded_dim(DEFAULT_T5_NAME)
-    cond_dim:           int = None
-    channels:           int = 3
-    attn_dim_head:      int = 32
-    attn_heads:         int = 16
-
-    def create(self):
-        return Unet3D(**self.dict())
-
 class SuperresConfig(AllowExtraBaseModel):
-    unets:                  ListOrTuple(Union[UnetConfig, Unet3DConfig, NullUnetConfig])
+    unets:                  ListOrTuple(Union[UnetConfig, NullUnetConfig])
     image_sizes:            ListOrTuple(int)
     video:                  bool = False
     timesteps:              SingleOrList(int) = 1000
@@ -93,10 +81,7 @@ class SuperresConfig(AllowExtraBaseModel):
         for unet, unet_kwargs in zip(self.unets, unets_kwargs):
             if isinstance(unet, NullUnetConfig):
                 unet_klass = NullUnet
-            elif is_video:
-                unet_klass = Unet3D
-            else:
-                unet_klass = Unet
+            unet_klass = Unet
 
             unets.append(unet_klass(**unet_kwargs))
 
@@ -106,7 +91,7 @@ class SuperresConfig(AllowExtraBaseModel):
         return superres
 
 class ElucidatedSuperresConfig(AllowExtraBaseModel):
-    unets:                  ListOrTuple(Union[UnetConfig, Unet3DConfig, NullUnetConfig])
+    unets:                  ListOrTuple(Union[UnetConfig, NullUnetConfig])
     image_sizes:            ListOrTuple(int)
     video:                  bool = False
     text_encoder_name:      str = DEFAULT_T5_NAME
@@ -136,17 +121,14 @@ class ElucidatedSuperresConfig(AllowExtraBaseModel):
         unets_kwargs = decoder_kwargs.pop('unets')
         is_video = decoder_kwargs.pop('video', False)
 
-        unet_klass = Unet3D if is_video else Unet
+        unet_klass = Unet
 
         unets = []
 
         for unet, unet_kwargs in zip(self.unets, unets_kwargs):
             if isinstance(unet, NullUnetConfig):
                 unet_klass = NullUnet
-            elif is_video:
-                unet_klass = Unet3D
-            else:
-                unet_klass = Unet
+            unet_klass = Unet
 
             unets.append(unet_klass(**unet_kwargs))
 
@@ -155,7 +137,7 @@ class ElucidatedSuperresConfig(AllowExtraBaseModel):
         superres._config = self.dict().copy()
         return superres
 
-class SuperresTrainerConfig(AllowExtraBaseModel):
+class SuperResolutionTrainerConfig(AllowExtraBaseModel):
     superres:                 dict
     elucidated:             bool = False
     video:                  bool = False
@@ -178,4 +160,4 @@ class SuperresTrainerConfig(AllowExtraBaseModel):
         superres_config_klass = ElucidatedSuperresConfig if elucidated else SuperresConfig
         superres = superres_config_klass(**{**superres_config, 'video': video}).create()
 
-        return SuperresTrainer(superres, **trainer_kwargs)
+        return SuperResolutionTrainer(superres, **trainer_kwargs)

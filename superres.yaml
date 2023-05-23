@@ -12,7 +12,7 @@ unets:
     channels: 1
     attn_heads: 8
 
-imagen:
+superres:
   params:
     image_sizes: [128, 512]
     channels: 1

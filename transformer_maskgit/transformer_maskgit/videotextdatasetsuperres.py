@@ -65,8 +65,8 @@ class VideoTextDataset(Dataset):
                     nii_lowres_img=nii_lowres.split("/")[-1]
                     nii_lowres = nii_lowres.split("/")[-2]
                     nii_lowres="samples."+nii_lowres
-                    nii_lowres="example_data/superres/"+nii_lowres+"/"+nii_lowres_img+".nii.gz"
-        
+                    nii_lowres="example_data/superres/ctvit_outputs/"+nii_lowres+"/"+nii_lowres_img+".nii.gz"
+                    
 
                     if nii_img.shape[-1] < 100 or nii_img.shape[-1] > 600:
                         continue
@@ -156,7 +156,7 @@ class VideoTextDataset(Dataset):
         nii_lowres_img=nii_lowres.split("/")[-1]
         nii_lowres = nii_lowres.split("/")[-2]
         nii_lowres="samples."+nii_lowres
-        nii_lowres="example_data/superres/"+nii_lowres+"/"+nii_lowres_img+".nii.gz"
+        nii_lowres="example_data/superres/ctvit_outputs/"+nii_lowres+"/"+nii_lowres_img+".nii.gz"
         video_lowres=self.lowres_to_tensor(nii_lowres)
 
         return self.cast_num_frames_fn(video_lowres), self.cast_num_frames_fn(video_tensor), input_text

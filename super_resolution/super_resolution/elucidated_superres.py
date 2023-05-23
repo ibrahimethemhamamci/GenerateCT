@@ -43,7 +43,7 @@ from super_resolution.superres_pytorch import (
     maybe_transform_dict_key
 )
 
-from superres_pytorch.t5 import t5_encode_text, get_encoded_dim, DEFAULT_T5_NAME
+from super_resolution.t5 import t5_encode_text, get_encoded_dim, DEFAULT_T5_NAME
 
 # constants
 
@@ -864,7 +864,7 @@ class ElucidatedSuperres(nn.Module):
         # self conditioning - https://arxiv.org/abs/2208.04202 - training will be 25% slower
 
         # Because 'unet' can be an instance of DistributedDataParallel coming from the
-        # SuperresTrainer.unet_being_trained when invoking SuperresTrainer.forward(), we need to
+        # SuperResolutionTrainer.unet_being_trained when invoking SuperResolutionTrainer.forward(), we need to
         # access the member 'module' of the wrapped unet instance.
         self_cond = unet.module.self_cond if isinstance(unet, DistributedDataParallel) else unet
 
