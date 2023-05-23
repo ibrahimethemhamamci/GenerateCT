@@ -26,7 +26,7 @@ cd ..
 To train the ctvit model in the paper, run this command:
 
 ```train
-accelerate launch --use_fsdp  train-ctvit.py
+accelerate launch --use_fsdp  train_ctvit.py
 ```
 To train the transformer model in the paper, run this command:
 
