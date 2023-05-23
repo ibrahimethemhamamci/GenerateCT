@@ -11,7 +11,12 @@ Welcome to the official repository of GenerateCT, a pioneering work in text-cond
 To install requirements:
 
 ```setup
-pip install -r requirements.txt
+cd super_resolution
+pip install -e .
+cd ..
+cd transformer_maskgit
+pip install -e .
+cd ..
 ```
 
 >📋  Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
