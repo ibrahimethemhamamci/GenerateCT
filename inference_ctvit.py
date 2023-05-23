@@ -13,13 +13,13 @@ cvivit = CViViT(
     dim_head = 32,
     heads = 8
 )
-cvivit.load('pretrained_ctvit/vae.pretrained.pt')
+cvivit.load('pretrained_models/ctvit_pretrained.pt')
 
 vit_infer = CVIVIT_inf(
     cvivit,
     folder = 'example_data_valid_ctvit',
     batch_size = 1,
-    results_folder="ctvit_infer",
+    results_folder="ctvit_inference",
     grad_accum_every = 1,
     train_on_images = False,  # you can train on images first, before fine tuning on video, for sample efficiency
     use_ema = False,          # recommended to be turned on (keeps exponential moving averaged cvivit) unless if you don't have enough resources

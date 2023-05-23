@@ -1,7 +1,7 @@
 import torch
-from phenaki_pytorch import CViViT, CViViTTrainer
+from transformer_maskgit import CTiViT, CTViTTrainer
 
-cvivit = CViViT(
+cvivit = CTViT(
     dim = 512,
     codebook_size = 8192,
     image_size = 128,
@@ -12,11 +12,10 @@ cvivit = CViViT(
     dim_head = 32,
     heads = 8
 )
-#cvivit.load('pretrained_ctvit/vae.pretrained.pt')
 
-trainer = CViViTTrainer(
+trainer = CTViTTrainer(
     cvivit,
-    folder = 'example_data_train_ctvit',
+    folder = 'example_data/ctvit-transformer',
     batch_size = 4,
     results_folder="ctvit",
     grad_accum_every = 1,

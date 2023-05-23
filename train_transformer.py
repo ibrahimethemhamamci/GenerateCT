@@ -1,6 +1,6 @@
-from phenaki_pytorch import CViViT, MaskGit, Phenaki
-from phenaki_pytorch.videotextdataset import VideoTextDataset
-from phenaki_pytorch.train_phenaki import PhenakiTrainer
+from transformer_maskgit import CTViT, MaskGit, MaskGITTransformer
+from transformer_maskgit.videotextdataset import VideoTextDataset
+from transformer_maskgit.train_transformer import TransformerTrainer
 from torch.utils.data import Dataset, DataLoader, random_split
 import torch
 import torch.distributed as dist
@@ -19,7 +19,7 @@ def cycle(dl):
 def train():
     # set up distributed training
 
-    cvivit = CViViT(
+    ctvit = CTViT(
         dim = 512,
         codebook_size = 8192,
         image_size = 128,
@@ -30,16 +30,12 @@ def train():
         dim_head = 32,
         heads = 8
     )
-    
-   
 
-
-    
 
     # Load the pre-trained weights
 
-    pretrained_cvivit_path = 'scratch/128_16_200f_batch4_8gpus_triple_continue2/vae.3000.pt'
-    cvivit.load(pretrained_cvivit_path)
+    pretrained_ctvit_path = 'pretrained_models/ctvit_pretrained.pt'
+    ctvit.load(pretrained_ctvit_path)
 
     maskgit = MaskGit(
         num_tokens=8192,
@@ -48,24 +44,21 @@ def train():
         dim_context=768,
         depth=6,
     )
-    
-    
-
-    phenaki_model = Phenaki(
+   
+    transformer_model = MaskGITTransformer(
         cvivit=cvivit,
         maskgit=maskgit
     )
     batch_size=1
-    phenaki_model.load('pretrained_transformer/transformer.pretrained.pt')
-
+    #transformer_model.load('pretrained_models/transformer_pretrained.pt')
 
     # initialize DDP
-    trainer = PhenakiTrainer(
-        phenaki_model,
+    trainer = TransformerTrainer(
+        transformer_model,
         num_train_steps=100000000,
         batch_size=1,
-        pretrained_cvivit_path='pretrained_ctvit/vae.pretrained.pt',
-        results_folder="transformer"
+        pretrained_cvivit_path='pretrained_models/ctvit_pretrained.pt',
+        results_folder="transformer_train"
     )
 
 

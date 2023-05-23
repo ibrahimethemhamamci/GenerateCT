@@ -10,8 +10,8 @@ import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
-from imagen_pytorch import Unet, ElucidatedImagen, ImagenTrainer, Imagen, NullUnet
-from phenaki_pytorch.videotextdatasetimagen import VideoTextDataset
+from super_resolution import Unet, ElucidatedSuperres, SuperresTrainer, Superres, NullUnet
+from transformer_maskgit.videotextdatasetsuperres import VideoTextDataset
 import nibabel as nib
 import numpy
 import torch.nn.functional as F
@@ -78,10 +78,10 @@ def update_config_with_arg(args, config):
         config.trainer.lr = args.lr
 
     if args.steps != -1:
-        if config.imagen.get("elucidated", True) == True:
-            config.imagen.num_sample_steps = args.steps
+        if config.superres.get("elucidated", True) == True:
+            config.superres.num_sample_steps = args.steps
         else:
-            config.imagen.timesteps = args.steps
+            config.superres.timesteps = args.steps
 
     return config
 
@@ -115,18 +115,18 @@ if __name__ == "__main__":
     unet1 = NullUnet()
     unet2=[Unet(**v, lowres_cond=(i>0)) for i, v in enumerate(config.unets.values())]
 
-    imagen_klass = ElucidatedImagen if config.imagen.get('elucidated', False) else Imagen
-    imagen = imagen_klass(
+    superres_klass = ElucidatedSuperres if config.superres.get('elucidated', False) else Superres
+    superres = superres_klass(
         unets = (unet1,unet2[0]),
-        **OmegaConf.to_container(config.imagen.params), # type: ignore
+        **OmegaConf.to_container(config.superres.params), # type: ignore
     )
 
-    trainer = ImagenTrainer(
-        imagen = imagen,
+    trainer = SuperresTrainer(
+        superres = superres,
         **config.trainer.params,
     ).to(device)
     # Create datasets
-    train_ds=VideoTextDataset(data_folder='example_data_train_superres', xlsx_file='example_data.xlsx', num_frames=2)
+    train_ds=VideoTextDataset(data_folder='example_data/ctvit-transformer', xlsx_file='ctvit-transformer/data_reports.xlsx', num_frames=2)
     trainer.add_train_dataset(
         train_ds, 
         **config.dataloader.params, # type: ignore
@@ -145,12 +145,13 @@ if __name__ == "__main__":
     trainer.accelerator.wait_for_everyone()
 
     # Resume training if requested and possible
-    if args.resume == 'auto' and len(os.listdir(os.path.join("scratch/superres_512_cont/ct_stage2", "models"))) > 0:
-        checkpoints = sorted(os.listdir(os.path.join("scratch/superres_512_cont/ct_stage2", "models")))
-        weight_path = os.path.join("scratch/superres_512_cont/ct_stage2", "models", checkpoints[-1])
+    if args.resume == 'auto' and len(os.listdir(os.path.join("scratch/superres/ct_stage2", "models"))) > 0:
+        checkpoints = sorted(os.listdir(os.path.join("scratch/superres/ct_stage2", "models")))
+        weight_path = os.path.join("models", checkpoints[-1])
         trainer.accelerator.print(f"Resuming training from {weight_path}")
         additional_data = trainer.load(weight_path)
         start_time = time.time() - additional_data["time_elapsed"] # type: ignore
+     
     else:
         train_days = 0
         start_time = time.time()
