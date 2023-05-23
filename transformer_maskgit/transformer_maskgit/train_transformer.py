@@ -1,6 +1,6 @@
 from pathlib import Path
 from shutil import rmtree
-from phenaki_pytorch.optimizer import get_optimizer
+from transformer_maskgit.optimizer import get_optimizer
 
 import torch
 from torch import nn

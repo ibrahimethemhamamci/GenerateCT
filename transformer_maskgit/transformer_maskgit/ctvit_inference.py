@@ -325,7 +325,7 @@ class CTVIT_inf(nn.Module):
         self.steps += 1
         return logs
 
-    def train(self, log_fn = noop):
+    def infer(self, log_fn = noop):
         device = next(self.vae.parameters()).device
         device=torch.device('cuda')
 

@@ -1,5 +1,5 @@
 import torch
-from transformer_maskgit import CTiViT, CTViTTrainer
+from transformer_maskgit import CTViT, CTViTTrainer
 
 cvivit = CTViT(
     dim = 512,
