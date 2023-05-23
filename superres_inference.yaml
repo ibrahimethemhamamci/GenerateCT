@@ -1,0 +1,53 @@
+unets:    
+  unet1: # SR
+    dim: 64
+    num_resnet_blocks: 2
+    dim_mults: [1,2,4]
+    layer_cross_attns: [False, False, False, True]
+    use_linear_attn: False
+    layer_attns: False
+    attend_at_middle: False
+    use_linear_cross_attn: False
+    memory_efficient: True
+    channels: 1
+    attn_heads: 8
+
+imagen:
+  params:
+    image_sizes: [128, 512]
+    channels: 1
+    timesteps: [25,25]
+    condition_on_text: True
+    random_crop_sizes: [null, null]
+    pred_objectives: v
+    lowres_sample_noise_level: 0.1
+
+
+trainer:
+  params:
+    split_batches: True
+    lr: 5e-4
+    dl_tuple_output_keywords_names: ['input_lowres','images', 'texts']
+
+dataset:
+  root: ""
+  image_size: 512 # image size
+
+
+dataloader: # This is adapted when launching the training script
+  params:
+    batch_size: 1
+    num_workers: 1
+    pin_memory: True
+    persistent_workers: True
+
+wandb:
+  name_suffix: ""
+  project: ""
+  entity: ""
+
+checkpoint:
+  path: "superres_inference"
+  batch_size: 1
+  cond_scale: 1.
+  save_every_x_it: 200

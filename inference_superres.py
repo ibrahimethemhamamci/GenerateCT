@@ -10,9 +10,9 @@ import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
-from imagen_pytorch import Unet, ElucidatedImagen, ImagenTrainer, Imagen, NullUnet
+from super_resolution import Unet, ElucidatedSuperres, SuperresTrainer, Superres, NullUnet
 #from diffusion_sandbox.dataset import iFindUnc
-from phenaki_pytorch.videotextdatasetphenakisuperres import VideoTextDataset
+from transformer_maskgit.videotextdatasettransformersuperres import VideoTextDataset
 import nibabel as nib
 import numpy
 import torch.nn.functional as F
@@ -80,10 +80,10 @@ def update_config_with_arg(args, config):
         config.trainer.lr = args.lr
 
     if args.steps != -1:
-        if config.imagen.get("elucidated", True) == True:
-            config.imagen.num_sample_steps = args.steps
+        if config.superres.get("elucidated", True) == True:
+            config.superres.num_sample_steps = args.steps
         else:
-            config.imagen.timesteps = args.steps
+            config.superres.timesteps = args.steps
 
     return config
 
@@ -117,17 +117,17 @@ if __name__ == "__main__":
     unet1 = NullUnet()
     unet2=[Unet(**v, lowres_cond=(i>0)) for i, v in enumerate(config.unets.values())]
 
-    imagen_klass = ElucidatedImagen if config.imagen.get('elucidated', False) else Imagen
-    imagen = imagen_klass(
+    superres_klass = ElucidatedSuperres if config.superres.get('elucidated', False) else Superres
+    superres = superres_klass(
         unets = (unet1,unet2[0]),
-        **OmegaConf.to_container(config.imagen.params), # type: ignore
+        **OmegaConf.to_container(config.superres.params), # type: ignore
     )
 
-    trainer = ImagenTrainer(
-        imagen = imagen,
+    trainer = SuperresTrainer(
+        superres = superres,
         **config.trainer.params,
     ).to(device)
-    train_ds=VideoTextDataset(data_folder='example_data_infer_superres/', xlsx_file='example_data.xlsx', num_frames=2)
+    train_ds=VideoTextDataset(data_folder='example_data/ctvit-transformer', xlsx_file='example_data/data_reports.xlsx', num_frames=2)
 
 
     dl = DataLoader(train_ds)
