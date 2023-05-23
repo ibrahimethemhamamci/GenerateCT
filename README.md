@@ -11,17 +11,37 @@ Welcome to the official repository of GenerateCT, a pioneering work in text-cond
 To install requirements:
 
 ```setup
-pip install -r requirements.txt
+cd super_resolution
+pip install -e .
+cd ..
+cd transformer_maskgit
+pip install -e .
+cd ..
 ```
 
 >📋  Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
 
 ## Training
 
-To train the model(s) in the paper, run this command:
+To train the ctvit model in the paper, run this command:
 
 ```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
+accelerate launch --use_fsdp  train-ctvit.py
+```
+To train the transformer model in the paper, run this command:
+
+```train
+accelerate launch train_transformer.py
+```
+
+To train the super resolution model in the paper, run this command:
+
+```train
+accelerate launch \
+    --multi_gpu \
+    --mixed_precision=fp16 \
+    --num_machines=1 \
+    train_superres.py --config superres.yaml --stage 2 --bs 8
 ```
 
 >📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
