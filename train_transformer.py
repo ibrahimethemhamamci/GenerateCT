@@ -13,9 +13,7 @@ def cycle(dl):
     while True:
         for data in dl:
             yield data
-
-
-
+            
 def train():
     # set up distributed training
 

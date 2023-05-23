@@ -270,7 +270,7 @@ class CTVIT_inf(nn.Module):
     def is_local_main(self):
         return self.accelerator.is_local_main_process
 
-    def train_step(self):
+    def infer(self, log_fn = noop):
         device = self.device
         device=torch.device('cuda')
         steps = int(self.steps.item())
@@ -295,43 +295,15 @@ class CTVIT_inf(nn.Module):
 
                     recons = model(valid_data, return_recons_only = True)
 
-                    # if is video, save gifs to folder
-                    # else save a grid of images
-
-                    if True:
-                        print(i)
-                        sampled_videos_path = self.results_folder / f'samples.{filename}'
-                        (sampled_videos_path).mkdir(parents = True, exist_ok = True)
-                        i=0
-                        for tensor in recons.unbind(dim = 0):
-                            tensor_to_nifti(tensor, str(sampled_videos_path / f'{name}.nii.gz'))
-                            i=i+1
-                    else:
-                        imgs_and_recons = torch.stack((valid_data, recons), dim = 0)
-                        imgs_and_recons = rearrange(imgs_and_recons, 'r b ... -> (b r) ...')
-
-                        imgs_and_recons = imgs_and_recons.detach().cpu().float().clamp(0., 1.)
-                        grid = make_grid(imgs_and_recons, nrow = 2, normalize = True, value_range = (0, 1))
-
-                        logs['reconstructions'] = grid
-
-                        save_image(grid, str(self.results_folder / f'{filename}.png'))
+                    sampled_videos_path = self.results_folder / f'samples.{filename}'
+                    (sampled_videos_path).mkdir(parents = True, exist_ok = True)
+                    i=0
+                    for tensor in recons.unbind(dim = 0):
+                        tensor_to_nifti(tensor, str(sampled_videos_path / f'{name}.nii.gz'))
+                        i=i+1
 
                     self.print(f'{steps}: saving to {str(self.results_folder)}')
 
-        # save model every so often
-
         logs="test"
-        self.steps += 1
-        return logs
+        self.print('inference complete')
 
-    def infer(self, log_fn = noop):
-        device = next(self.vae.parameters()).device
-        device=torch.device('cuda')
-
-        while self.steps < self.num_train_steps:
-            logs = self.train_step()
-            print(self.steps)
-            #log_fn(logs)
-
-        self.print('training complete')
