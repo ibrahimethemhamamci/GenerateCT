@@ -70,7 +70,7 @@ accelerate launch \
 
 You can download pretrained models here:
 
-- [Pretrained models (CT-ViT, Transformer, and Super Resolution Diffusion)](https://huggingface.co/generatect/GenerateCT/tree/main/pretrained_models) trained on our radiological report-CT volume dataset described in the paper. 
+- Pretrained models -- [CT-ViT](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/ctvit_pretrained.pt), [Transformer](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/transformer_pretrained.pt), and [Super Resolution Diffusion](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/superres_pretrained.pt) -- trained on our paired radiological report&chest CT volume dataset described in the paper. 
 
 ## Example Data
 
