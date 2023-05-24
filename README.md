@@ -76,7 +76,7 @@ You can download pretrained models here:
 
 You can download example data here:
 
-- [Example data](https://huggingface.co/generatect/GenerateCT/tree/main/example_data) for the CT-ViT, transformer, and Super Resolution Diffusion networks' trainings. 
+- [Example data]([https://huggingface.co/generatect/GenerateCT/tree/main/example_data](https://huggingface.co/generatect/GenerateCT/resolve/main/example_data.zip)) for the CT-ViT, transformer, and Super Resolution Diffusion networks' trainings. 
 
 ## Generated Dataset
 
