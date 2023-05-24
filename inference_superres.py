@@ -117,7 +117,7 @@ if __name__ == "__main__":
         superres = superres,
         **config.trainer.params,
     ).to(device)
-    train_ds=VideoTextDataset(data_folder='example_data/ctvit-transformer', xlsx_file='example_data/data_reports.xlsx', num_frames=2)
+    train_ds=VideoTextDataset(data_folder='example_data/superres/ctvit_outputs/', xlsx_file='example_data/data_reports.xlsx', num_frames=2)
 
 
     dl = DataLoader(train_ds)
@@ -158,6 +158,7 @@ if __name__ == "__main__":
             infer.accelerator.print(f'Saving videos (it. {cur_step})')
 
             if infer.is_main:
+                images_ref_input, texts_ref, path_name= next(iter(dl))
                 images_ref_input=images_ref_input[0]
                 texts_ref=texts_ref[0]
                 images_ref_input=images_ref_input.permute(1, 0, 2,3)

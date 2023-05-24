@@ -17,6 +17,7 @@ setup(
     'transformers>=4.20.1',
     'tqdm',
     'vector-quantize-pytorch==1.1.2',
-    'nibabel'
+    'nibabel',
+    'openpyxl',
   ],
 )
