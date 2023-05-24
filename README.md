@@ -25,6 +25,7 @@ pip install -e .
 # Return to the root directory
 cd ..
 ```
+After following these steps, your environment should be properly set up with all required packages.
 
 ## Training
 
