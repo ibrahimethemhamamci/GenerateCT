@@ -82,9 +82,18 @@ Remember to adjust the parameters as per your configuration requirements.
 
 ## Pretrained Models
 
-You can download pretrained models here:
+For your convenience, we provide access to pretrained models directly. These models have been trained on our paired radiological report and chest CT volume dataset, as elaborated in the accompanying paper.
 
-- Pretrained models -- [CT-ViT](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/ctvit_pretrained.pt), [Transformer](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/transformer_pretrained.pt), and [Super Resolution Diffusion](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/superres_pretrained.pt) -- trained on our paired radiological report&chest CT volume dataset described in the paper. 
+You can download the models from the following links:
+
+- **CT-ViT Model**: [Download Here](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/ctvit_pretrained.pt)
+
+- **Transformer Model**: [Download Here](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/transformer_pretrained.pt)
+
+- **Super Resolution Diffusion Model**: [Download Here](https://huggingface.co/generatect/GenerateCT/resolve/main/pretrained_models/superres_pretrained.pt)
+
+By leveraging these pretrained models, you can easily reproduce our results or further extend our work.
+
 
 ## Example Data
 
