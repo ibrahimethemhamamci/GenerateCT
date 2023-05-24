@@ -28,6 +28,7 @@ cd ..
 ```
 After following these steps, your environment should be properly set up with all required packages.
 
+The MaskGIT Transformer model necessitates the use of an A100 GPU, with 80G of VRAM, for efficient training and inference operations, due to the model's considerable size.
 
 ## Training
 
