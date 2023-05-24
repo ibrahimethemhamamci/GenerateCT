@@ -97,15 +97,21 @@ By leveraging these pretrained models, you can easily reproduce our results or f
 
 ## Example Data
 
-You can download example data here:
+Explore and experiment with our example data, specifically curated for training the CT-ViT, Transformer, and Super Resolution Diffusion networks.
 
-- [Example data](https://huggingface.co/generatect/GenerateCT/resolve/main/example_data.zip) for the CT-ViT, transformer, and Super Resolution Diffusion networks' trainings. 
+- [Download Example Data](https://huggingface.co/generatect/GenerateCT/resolve/main/example_data.zip)
+
+Feel free to utilize this example data to gain insights into the training process of the components of GenerateCT.
+
 
 ## Generated Dataset
 
-You can download generated dataset with 2286 generated CT volumes and their corresponding text prompts here:
+Explore our generated dataset, consisting of 2286 synthetic CT volumes and their corresponding text prompts. 
 
-- [Generated dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data), used in the supplementary section for a clinical application to demonstrate the potential of GenerateCT, consisting synthetic chest CT volumes, medical language text prompts used in generation, and abnormality labels. 
+- [Download Generated Dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data)
+
+The dataset includes synthetic chest CT volumes, medical language text prompts used in the generation process, and abnormality labels. It was utilized in the supplementary section of our paper to showcase the capabilities of GenerateCT. Feel free to utilize this dataset for research, analysis, or to gain a deeper understanding of the generated CT volumes and their associated text prompts. 
+
 
 ## Evaluation
 
