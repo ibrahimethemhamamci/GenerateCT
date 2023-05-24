@@ -24,7 +24,7 @@ cd ..
 To train the CT-ViT model in the paper, run this command:
 
 ```train
-accelerate launch --use_fsdp  train_ctvit.py
+accelerate launch --use_fsdp train_ctvit.py
 ```
 To train the MaskGIT Transformer model in the paper, run this command:
 
@@ -63,7 +63,7 @@ accelerate launch \
     --multi_gpu \
     --mixed_precision=fp16 \
     --num_machines=1 \
-    inference_superres.py --config superres_inference.yaml  --stage 2 --bs 2
+    inference_superres.py --config superres_inference.yaml --stage 2 --bs 2
 ```
 
 ## Pretrained Models
