@@ -78,6 +78,12 @@ You can download example data here:
 
 - [Example data](https://huggingface.co/generatect/GenerateCT/tree/main/example_data) for the CT-ViT, transformer, and Super Resolution Diffusion networks' trainings. 
 
+## Generated Dataset
+
+You can download generated dataset with 2286 generated CT volumes and their corresponding input texts here:
+
+- [Generated dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data) used in the supplementary. 
+
 ## Evaluation
 
 For FID and FVD, we used dataset evaluation script from the [StyleGAN-V](https://github.com/universome/stylegan-v). For the CLIP score, we used [torchmetrics implementation](https://torchmetrics.readthedocs.io/en/stable/multimodal/clip_score.html).
