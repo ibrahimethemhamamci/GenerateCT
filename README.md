@@ -82,7 +82,7 @@ You can download example data here:
 
 You can download generated dataset with 2286 generated CT volumes and their corresponding text prompts here:
 
-- [Generated dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data) used in the supplementary. 
+- [Generated dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data) consisting synthetic chest CT volumes, medical language text prompts used in generation, and abnormality labels used in the supplementary section for a clinical application to demonstrate the potential of GenerateCT. 
 
 ## Evaluation
 
