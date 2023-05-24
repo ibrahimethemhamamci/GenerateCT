@@ -25,5 +25,6 @@ setup(
     'transformers',
     'tqdm',
     'omegaconf',
+    'appdirs',
   ],
 )

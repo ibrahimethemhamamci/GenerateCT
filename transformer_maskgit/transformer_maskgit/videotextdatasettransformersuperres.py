@@ -54,6 +54,7 @@ class VideoTextDataset(Dataset):
 
         for root, dirs, files in os.walk(self.data_folder):
             for file in files:
+                print(file)
                 if file.endswith(".nii.gz"):
                     nii_gz_files=os.path.join(root, file)
                     samples.append(nii_gz_files)
@@ -106,7 +107,7 @@ class VideoTextDataset(Dataset):
 
     def __getitem__(self, index):
         nii_file = self.samples[index]
-        text_path=nii_file[:-7]+".txt"
+        text_path=nii_file.split(".nii.gz")[0]+".txt"
         print(text_path)
         with open(text_path, 'r', encoding="utf-8") as file:
             input_text = file.readline().strip()
