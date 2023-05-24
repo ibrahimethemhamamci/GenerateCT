@@ -1,6 +1,6 @@
 # GenerateCT: Text-Guided 3D Chest CT Generation
 
-Welcome to the official repository of GenerateCT, a pioneering work in text-conditional 3D medical image generation, with a particular focus on chest CT volumes. Here, you will find the code and all models for text-to-CT generation, all freely accessible for researchers.
+Welcome to the official repository of GenerateCT, a pioneering work in text-conditional 3D medical image generation, with a particular focus on chest CT volumes. GenerateCT provides an open-source codebase, pre-trained models for text-to-CT generation, and a unique, generated dataset, all freely accessible for researchers.
 
 <p align="center">
   <img src="figures/examples.gif" width="100%">
@@ -8,14 +8,21 @@ Welcome to the official repository of GenerateCT, a pioneering work in text-cond
 
 ## Requirements
 
-To install requirements, run the following commands:
+Before you start, you must install the necessary dependencies. To do so, execute the following commands:
 
 ```setup
+# Navigate to the 'super_resolution' directory and install the required packages
 cd super_resolution
 pip install -e .
+
+# Return to the root directory
 cd ..
+
+# Navigate to the 'transformer_maskgit' directory and install its required packages
 cd transformer_maskgit
 pip install -e .
+
+# Return to the root directory
 cd ..
 ```
 
