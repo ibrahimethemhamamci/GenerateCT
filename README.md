@@ -6,6 +6,7 @@ Welcome to the official repository of GenerateCT, a pioneering work in text-cond
   <img src="figures/examples.gif" width="100%">
 </p>
 
+
 ## Requirements
 
 Before you start, you must install the necessary dependencies. To do so, execute the following commands:
@@ -26,6 +27,7 @@ pip install -e .
 cd ..
 ```
 After following these steps, your environment should be properly set up with all required packages.
+
 
 ## Training
 
@@ -51,21 +53,22 @@ accelerate launch \
 ```
 Remember to replace the respective parameters with the ones relevant to your setup if necessary.
 
+
 ## Inference
 
-For inference of the CT-ViT model in the paper, run this command:
+To run inference on the CT-ViT model, use the following command:
 
 ```eval
 python inference_ctvit.py
 ```
 
-For inference of the MaskGIT Transformer model in the paper, run this command:
+To infer with the MaskGIT Transformer model, execute the command below:
 
 ```eval
 python inference_transformer.py
 ```
 
-For inference of the Super Resolution Diffusion model, run this command:
+Lastly, for inference using the Super Resolution Diffusion model, issue this multi-line command:
 
 ```eval
 accelerate launch \
@@ -74,6 +77,8 @@ accelerate launch \
     --num_machines=1 \
     inference_superres.py --config superres_inference.yaml --stage 2 --bs 2
 ```
+Remember to adjust the parameters as per your configuration requirements. 
+
 
 ## Pretrained Models
 
