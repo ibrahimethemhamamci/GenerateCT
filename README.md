@@ -49,7 +49,7 @@ accelerate launch \
     --num_machines=1 \
     train_superres.py --config superres.yaml --stage 2 --bs 8
 ```
-Please make sure to adjust the parameters based on your setup's requirements. Should you encounter any issues during the training process, feel free to raise an issue on our GitHub page.
+Remember to replace the respective parameters with the ones relevant to your setup if necessary.
 
 ## Inference
 
