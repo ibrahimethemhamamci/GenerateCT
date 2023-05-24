@@ -6,7 +6,6 @@ import time
 import torch
 import numpy as np
 from PIL import Image
-import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
@@ -50,16 +49,6 @@ def one_line_log(config, cur_step, loss, batch_per_epoch, start_time, validation
     if cur_step % 1000 == 0:
         print() # Start new line every 1000 steps
     
-
-
-def start_wandb(config, exp_name):
-    wandb.init(
-        name=f"{exp_name}",
-        project=config.wandb.project,
-        entity=config.wandb.entity,
-        config=OmegaConf.to_container(config, resolve=True) # type: ignore
-    )
-
 def get_exp_name(args):
     exp_name = args.config.split("/")[-1].split(".")[0] # get config file name
     exp_name = f"{exp_name}_stage{args.stage}"
@@ -202,7 +191,7 @@ if __name__ == "__main__":
         if cur_step % config.checkpoint.save_every_x_it == 1:
             trainer.accelerator.wait_for_everyone()
             trainer.accelerator.print()
-            trainer.accelerator.print(f'Saving model and videos to wandb (it. {cur_step})')
+            trainer.accelerator.print(f'Saving model and videos (it. {cur_step})')
             
             if trainer.is_main:
                 images_ref_input, images_ref, texts_ref= next(iter(trainer.valid_dl))

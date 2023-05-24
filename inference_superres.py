@@ -6,12 +6,10 @@ import time
 import torch
 import numpy as np
 from PIL import Image
-import wandb
 import torch
 from einops import rearrange
 from scipy.ndimage import zoom
 from super_resolution import Unet, ElucidatedSuperres, SuperResolutionTrainer, Superres, NullUnet
-#from diffusion_sandbox.dataset import iFindUnc
 from transformer_maskgit.videotextdatasettransformersuperres import VideoTextDataset
 import nibabel as nib
 import numpy
@@ -53,14 +51,6 @@ def cycle(dl):
     while True:
         for data in dl:
             yield data
-
-def start_wandb(config, exp_name):
-    wandb.init(
-        name=f"{exp_name}",
-        project=config.wandb.project,
-        entity=config.wandb.entity,
-        config=OmegaConf.to_container(config, resolve=True) # type: ignore
-    )
 
 def get_exp_name(args):
     exp_name = args.config.split("/")[-1].split(".")[0] # get config file name
@@ -113,7 +103,7 @@ if __name__ == "__main__":
     # Overwrite config values with args
     config = update_config_with_arg(args, config)
 
-    # Create models and trainer
+    # Create models and inference
     unet1 = NullUnet()
     unet2=[Unet(**v, lowres_cond=(i>0)) for i, v in enumerate(config.unets.values())]
 
@@ -123,7 +113,7 @@ if __name__ == "__main__":
         **OmegaConf.to_container(config.superres.params), # type: ignore
     )
 
-    trainer = SuperResolutionTrainer(
+    infer = SuperResolutionTrainer(
         superres = superres,
         **config.trainer.params,
     ).to(device)
@@ -135,7 +125,7 @@ if __name__ == "__main__":
     batch_per_epoch = (len(train_ds) // config.dataloader.params.batch_size)+1
 
     save_folder = os.path.join(config.checkpoint.path, exp_name)
-    if trainer.is_main:
+    if infer.is_main:
     # Create save folder and resume logic
         if args.resume not in ['auto', 'overwrite']:
             raise ValueError("Got wrong resume value: ", args.resume)
@@ -143,77 +133,60 @@ if __name__ == "__main__":
     # Create save folder if it doesn't exist and copy config file
         create_save_folder(args.config, save_folder)
 
-    trainer.accelerator.wait_for_everyone()
+    infer.accelerator.wait_for_everyone()
 
     # Resume training if requested and possible
-    if args.resume == 'auto' and len(os.listdir(os.path.join("model_superres", "models"))) > 0:
-        checkpoints = sorted(os.listdir(os.path.join("model_superres", "models")))
-        weight_path = os.path.join("model_superres", "models", checkpoints[-1])
-        trainer.accelerator.print(f"Resuming training from {weight_path}")
-        additional_data = trainer.load(weight_path)
-        start_time = time.time() - additional_data["time_elapsed"] # type: ignore
-    else:
-        train_days = 0
-        start_time = time.time()
-        trainer.accelerator.print("Training from scratch")
+    weight_path = os.path.join("pretrained_models","superres_pretrained.pt")
+    infer.accelerator.print(f"Inference from {weight_path}")
+    additional_data = infer.load(weight_path)
+    start_time = time.time() - additional_data["time_elapsed"] # type: ignore
 
     # Save reference videos and get test embeddings
-    trainer.accelerator.print("Getting reference videos...")
-    if trainer.is_main:
+    if infer.is_main:
         sample_kwargs = {}
         sample_kwargs["start_at_unet_number"] = config.stage
         sample_kwargs["stop_at_unet_number"] = config.stage
 
-    trainer.accelerator.print("Starting inference loop...")
-    trainer.accelerator.wait_for_everyone()
-
+    infer.accelerator.print("Starting inference loop...")
+    infer.accelerator.wait_for_everyone()
 
     cur_step = 0
     for i in range(len(train_ds)): # let slurm handle the stopping
-
-
         if True:
-            trainer.accelerator.wait_for_everyone()
-            trainer.accelerator.print()
-            trainer.accelerator.print(f'Saving model and videos to wandb (it. {cur_step})')
+            infer.accelerator.wait_for_everyone()
+            infer.accelerator.print()
+            infer.accelerator.print(f'Saving videos (it. {cur_step})')
 
-            if trainer.is_main:
-                images_ref_input, texts_ref, path_name= next(iter(dl))
-                filename = os.path.join("scratch/superres_supps/ibrahim_450-599-superres_old/config_inference_stage2/", "images", f"sample-{path_name}.nii.gz")
-                if os.path.exists(filename):
-                    print(f"The file '{filename}' already inferred.")
-                    continue
-                else:
-                    images_ref_input=images_ref_input[0]
-                    print("test")
-                    texts_ref=texts_ref[0]
-                    images_ref_input=images_ref_input.permute(1, 0, 2,3)
-                    image_ref_input_shape = images_ref_input[0].shape
-                    texts_ref=[texts_ref]
-                    sample_kwargs["texts"] = texts_ref
+            if infer.is_main:
+                images_ref_input=images_ref_input[0]
+                texts_ref=texts_ref[0]
+                images_ref_input=images_ref_input.permute(1, 0, 2,3)
+                image_ref_input_shape = images_ref_input[0].shape
+                texts_ref=[texts_ref]
+                sample_kwargs["texts"] = texts_ref
 
-                    with torch.no_grad():
-                        image_list=[]
-                        torch.cuda.empty_cache()
-                        for k in range(images_ref_input.shape[0]):
-                            input_img = images_ref_input[k:k+1]# type: ignore
-                            sample_images = trainer.sample(
-                                cond_scale=config.checkpoint.cond_scale,
-                                texts = texts_ref,
-                                start_image_or_video=input_img,
-                                start_at_unet_number = 2,
-                            ).detach().cpu() # B x C x H x W
-                            image_list.append(sample_images[0])
+                with torch.no_grad():
+                    image_list=[]
+                    torch.cuda.empty_cache()
+                    for k in range(images_ref_input.shape[0]):
+                        input_img = images_ref_input[k:k+1]# type: ignore
+                        sample_images = infer.sample(
+                            cond_scale=config.checkpoint.cond_scale,
+                            texts = texts_ref,
+                            start_image_or_video=input_img,
+                            start_at_unet_number = 2,
+                        ).detach().cpu() # B x C x H x W
+                        image_list.append(sample_images[0])
 
-                    sample_images=torch.stack(image_list)
-                    input_img=images_ref_input
-                    input_img=input_img.permute(2, 3, 0,1)
-                    sample_images=sample_images.permute(2, 3, 0,1)
-                    affine = np.eye(4)  # example affine matrix
-                    nii = nib.Nifti1Image(sample_images.numpy(), affine)
-                    nib.save(nii, os.path.join(save_folder, "images", f"sample-{path_name}.nii.gz"))
+                sample_images=torch.stack(image_list)
+                input_img=images_ref_input
+                input_img=input_img.permute(2, 3, 0,1)
+                sample_images=sample_images.permute(2, 3, 0,1)
+                affine = np.eye(4)  # example affine matrix
+                nii = nib.Nifti1Image(sample_images.numpy(), affine)
+                nib.save(nii, os.path.join(save_folder, "images", f"sample-{path_name}.nii.gz"))
 
-            trainer.accelerator.wait_for_everyone()
+            infer.accelerator.wait_for_everyone()
 
             additional_data = {
                 "time_elapsed": time.time() - start_time,
