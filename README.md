@@ -115,12 +115,18 @@ The dataset includes synthetic chest CT volumes, medical language text prompts u
 
 ## Evaluation
 
-For FID and FVD, we used dataset evaluation script from the [StyleGAN-V](https://github.com/universome/stylegan-v). For the CLIP score, we used [torchmetrics implementation](https://torchmetrics.readthedocs.io/en/stable/multimodal/clip_score.html).
+In our evaluation process, we employed various metrics to assess the performance of our generated CT volumes. 
+
+- **FID and FVD Metrics**: To calculate the Fréchet Inception Distance (FID) and Fréchet Video Distance (FVD), we utilized the evaluation script from the [StyleGAN-V repository](https://github.com/universome/stylegan-v).
+
+- **CLIP Score Metric**: For the CLIP score evaluation, we relied on the [torchmetrics implementation](https://torchmetrics.readthedocs.io/en/stable/multimodal/clip_score.html).
+
+Feel free to explore these metrics to gain a comprehensive understanding of the quality and performance of our generated CT volumes.
 
 
 ## Results
 
-Our models achieve the following performances :
+Our models have achieved impressive performances, as outlined in the table below:
 
 |                    |   Resolution    |    Dimension     |    Text-Guided   |        FID (↓)               |  FVD (↓)  |  CLIP (↑)   |
 |--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
