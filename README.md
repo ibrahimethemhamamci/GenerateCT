@@ -80,7 +80,7 @@ You can download example data here:
 
 ## Generated Dataset
 
-You can download generated dataset with 2286 generated CT volumes and their corresponding input texts here:
+You can download generated dataset with 2286 generated CT volumes and their corresponding text prompts here:
 
 - [Generated dataset](https://huggingface.co/generatect/GenerateCT/tree/main/generated_data) used in the supplementary. 
 
