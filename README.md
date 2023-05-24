@@ -29,18 +29,18 @@ After following these steps, your environment should be properly set up with all
 
 ## Training
 
-To train the CT-ViT model in the paper, run this command:
+Train the CT-ViT model by executing the following command in your terminal:
 
 ```train
 accelerate launch --use_fsdp train_ctvit.py
 ```
-To train the MaskGIT Transformer model in the paper, run this command:
+To train the MaskGIT Transformer model, use the command provided below:
 
 ```train
 accelerate launch train_transformer.py
 ```
 
-To train the Super Resolution Diffusion model in the paper, run this command:
+Lastly, train the Super Resolution Diffusion model using the multi-line command outlined here:
 
 ```train
 accelerate launch \
@@ -49,6 +49,7 @@ accelerate launch \
     --num_machines=1 \
     train_superres.py --config superres.yaml --stage 2 --bs 8
 ```
+Please make sure to adjust the parameters based on your setup's requirements. Should you encounter any issues during the training process, feel free to raise an issue on our GitHub page.
 
 ## Inference
 
