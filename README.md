@@ -82,7 +82,7 @@ Remember to adjust the parameters as per your configuration requirements.
 
 ## Pretrained Models
 
-For your convenience, we provide access to pretrained models directly. These models have been trained on our paired radiological report and chest CT volume dataset, as elaborated in the accompanying paper.
+For your convenience, we provide access to pretrained models directly. These models have been trained on our paired radiological report and chest CT volume dataset, as elaborated in the paper.
 
 You can download the models from the following links:
 
