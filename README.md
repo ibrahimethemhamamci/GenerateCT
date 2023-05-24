@@ -8,7 +8,7 @@ Welcome to the official repository of GenerateCT, a pioneering work in text-cond
 
 ## Requirements
 
-To install requirements:
+To install requirements, run the following commands:
 
 ```setup
 cd super_resolution
@@ -19,22 +19,20 @@ pip install -e .
 cd ..
 ```
 
->📋  Describe how to set up the environment, e.g. pip/conda/docker commands, download datasets, etc...
-
 ## Training
 
-To train the ctvit model in the paper, run this command:
+To train the CT-ViT model in the paper, run this command:
 
 ```train
 accelerate launch --use_fsdp  train_ctvit.py
 ```
-To train the transformer model in the paper, run this command:
+To train the MaskGIT Transformer model in the paper, run this command:
 
 ```train
 accelerate launch train_transformer.py
 ```
 
-To train the super resolution model in the paper, run this command:
+To train the Super Resolution Diffusion model in the paper, run this command:
 
 ```train
 accelerate launch \
@@ -44,29 +42,63 @@ accelerate launch \
     train_superres.py --config superres.yaml --stage 2 --bs 8
 ```
 
->📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
+## Inference
 
-## Evaluation
-
-To evaluate my model on ImageNet, run:
+For inference of the CT-ViT model in the paper, run this command:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+python inference_ctvit.py
 ```
 
->📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
+For inference of the MaskGIT Transformer model in the paper, run this command:
 
-## Pre-trained Models
+```eval
+python inference_transformer.py
+```
+
+For inference of the Super Resolution Diffusion model, run this command:
+
+```eval
+accelerate launch \
+    --multi_gpu \
+    --mixed_precision=fp16 \
+    --num_machines=1 \
+    inference_superres.py --config superres_inference.yaml  --stage 2 --bs 2
+```
+
+## Pretrained Models
 
 You can download pretrained models here:
 
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
+- [Pretrained models (CT-ViT, Transformer, and Super Resolution Diffusion)](https://huggingface.co/generatect/GenerateCT/tree/main/pretrained_models) trained on our radiological report-CT volume dataset described in the paper. 
 
->📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
+## Example Data
 
-## Inference
+You can download example data here:
 
->📋  Give an explanation on how to get inference using pre-trained models.
+- [Example data](https://huggingface.co/generatect/GenerateCT/tree/main/example_data) for the CT-ViT, transformer, and Super Resolution Diffusion networks' trainings. 
+
+## Evaluation
+
+For FID and FVD we used evaluation script from the [StyleGAN-V](https://github.com/universome/stylegan-v). For the CLIP score, we used [torchmetrics implementation](https://torchmetrics.readthedocs.io/en/stable/multimodal/clip_score.html).
+
+To prepare inferred dataset for Evaluation, run this command:
+
+```
+add command here
+```
+
+For FID and FVD scores, run this command after cloning the repository:
+
+```
+add command here
+```
+
+For CLIP score, run this command:
+
+```
+add command here
+```
 
 ## Results
 
@@ -86,5 +118,5 @@ Our work, including the codes, trained models, and generated data, is released u
 
 
 ## Acknowledgements
-We would like to express our gratitude to the following repositories for their invaluable contributions to our work: [Phenaki Pytorch by Lucidrains](https://github.com/lucidrains/phenaki-pytorch), [Phenaki by LAION-AI](https://github.com/LAION-AI/phenaki), [Imagen Pytorch by Lucidrains](https://github.com/lucidrains/imagen-pytorch), and [CT Net Models by Rachellea](https://github.com/rachellea/ct-net-models). We extend our sincere appreciation to these researchers for their exceptional open-source efforts. If you utilize our models and code, we kindly request that you also consider citing these works to acknowledge their contributions.
+We would like to express our gratitude to the following repositories for their invaluable contributions to our work: [Phenaki Pytorch by Lucidrains](https://github.com/lucidrains/phenaki-pytorch), [Phenaki by LAION-AI](https://github.com/LAION-AI/phenaki), [Imagen Pytorch by Lucidrains](https://github.com/lucidrains/imagen-pytorch), [StyleGAN-V by universome](https://github.com/universome/stylegan-v), and [CT Net Models by Rachellea](https://github.com/rachellea/ct-net-models). We extend our sincere appreciation to these researchers for their exceptional open-source efforts. If you utilize our models and code, we kindly request that you also consider citing these works to acknowledge their contributions.
 

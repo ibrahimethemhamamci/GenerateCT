@@ -16,6 +16,7 @@ setup(
     'torchvision',
     'transformers>=4.20.1',
     'tqdm',
-    'vector-quantize-pytorch>=0.10.15'
+    'vector-quantize-pytorch==1.1.2',
+    'nibabel'
   ],
 )
