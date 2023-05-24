@@ -82,23 +82,6 @@ You can download example data here:
 
 For FID and FVD we used evaluation script from the [StyleGAN-V](https://github.com/universome/stylegan-v). For the CLIP score, we used [torchmetrics implementation](https://torchmetrics.readthedocs.io/en/stable/multimodal/clip_score.html).
 
-To prepare inferred dataset for Evaluation, run this command:
-
-```
-add command here
-```
-
-For FID and FVD scores, run this command after cloning the repository:
-
-```
-add command here
-```
-
-For CLIP score, run this command:
-
-```
-add command here
-```
 
 ## Results
 
