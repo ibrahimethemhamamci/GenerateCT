@@ -105,7 +105,7 @@ Explore and experiment with our example data, specifically curated for training 
 Feel free to utilize this example data to gain insights into the training process of the components of GenerateCT.
 
 
-## Generated Dataset
+## Generated Data
 
 Explore our generated dataset, consisting of 2286 synthetic CT volumes and their corresponding text prompts. 
 
