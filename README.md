@@ -80,6 +80,14 @@ accelerate launch \
 ```
 Remember to adjust the parameters as per your configuration requirements. 
 
+## Sampling Times
+
+Our performance metrics detail the sampling times for generating and upscaling 3D Chest CT volumes. It is important to note that these figures were derived from our tests on an NVIDIA A100 80GB GPU and may vary based on your system's configuration.
+
+- **3D Chest CT Generation:** By leveraging the capabilities of CT-ViT and MaskGIT on an NVIDIA A100 80GB GPU, we are able to generate a low-resolution 3D Chest CT volume (128x128x201) from a given text input. This process takes approximately 30 seconds, making it efficient for real-time applications.
+
+- **Text-Conditional Upsampling:** We utilize a layer-by-layer upsampling technique via the Diffusion Model to enhance the resolution of the generated Chest CT from 128x128x201 to 512x512x201. Each layer's upsampling operation is performed swiftly, taking less than a second on the same GPU. The entire upsampling process for all 201 slices of the CT volume takes around 150 seconds.
+
 
 ## Pretrained Models
 
