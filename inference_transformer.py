@@ -12,7 +12,7 @@ from pathlib import Path
 import glob
 import pandas as pd
 import random
-
+import tqdm
 
 
 def cycle(dl):
@@ -37,7 +37,7 @@ def scan_folder(directory):
 def infer():
     # set up distributed training
 
-    cvivit = CViViT(
+    ctvit = CTViT(
         dim = 512,
         codebook_size = 8192,
         image_size = 128,
@@ -49,12 +49,12 @@ def infer():
         heads = 8
     )
 
-    cvivit.eval()
+    ctvit.eval()
 
     # Load the pre-trained weights
 
-    pretrained_cvivit_path = 'pretrained_models/ctvit_pretrained.pt'
-    cvivit.load(pretrained_cvivit_path)
+    pretrained_ctvit_path = 'pretrained_models/ctvit_pretrained.pt'
+    ctvit.load(pretrained_ctvit_path)
 
     maskgit = MaskGit(
         num_tokens=8192,
@@ -64,13 +64,13 @@ def infer():
         depth=6,
     )
 
-    phenaki_model = Phenaki(
-        cvivit=cvivit,
+    transformer_model = MaskGITTransformer(
+        ctvit=ctvit,
         maskgit=maskgit
     ).cuda()
     batch_size=1
     transformer_model.load('pretrained_models/transformer_pretrained.pt')
-    phenaki_model.eval()
+    transformer_model.eval()
 
     xlsx_file = 'example_data/text_prompts.xlsx'
     labels_data = pd.read_excel(xlsx_file)
@@ -78,10 +78,11 @@ def infer():
     # Create a dictionary to map table names to text prompts for given labels
     texts_dict = dict(zip(labels_data['Names'], labels_data['Text_prompts']))
     #for i in range(len(texts)):
-    for i, (input_name, text) in enumerate(texts_dict.items()):
+    print("Inference for the transformer model")
+    for i, (input_name, text) in tqdm.tqdm(enumerate(texts_dict.items())):
         for k in range(1):
-            out=phenaki_model.sample(texts =text, num_frames = 201, cond_scale = 5.)
-            path_test=Path("phenaki_inference")
+            out=transformer_model.sample(texts =text, num_frames = 201, cond_scale = 5.)
+            path_test=Path("transformer_inference")
             sampled_videos_path = path_test / f'samples.{input_name}_{str(i)}'
             (sampled_videos_path).mkdir(parents = True, exist_ok = True)
             for tensor in out.unbind(dim = 0):
