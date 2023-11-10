@@ -133,19 +133,6 @@ In our evaluation process, we employed various metrics to assess the performance
 Feel free to explore these metrics to gain a comprehensive understanding of the quality and performance of our generated CT volumes.
 
 
-## Results
-
-Our models have achieved impressive performances, as outlined in the table below:
-
-|                    |   Resolution    |    Dimension     |    Text-Guided   |        FID (↓)               |  FVD (↓)  |  CLIP (↑)   |
-|--------------------|-----------------|------------------|------------------|------------------------------|-----------|-------------|
-|      CT-ViT        |       128       |       3D         |        No        |         73.4                 |   1817.4  |    N/A      |
-|   Transformer      |       128       |       3D         |        Yes       |        104.3                 |   1886.8  |    25.2     |
-|     Diffusion      |       512       |       2D         |        Yes       |         14.9                 |   409.8   |    27.6     |
-|   **GenerateCT**   |       512       |       3D         |        Yes       |         55.8                 |   1092.3  |    27.1     |
-
-
-
 ## License
 Our work, including the codes, trained models, and generated data, is released under a [Creative Commons Attribution (CC-BY) license](https://creativecommons.org/licenses/by/4.0/). This means that anyone is free to share (copy and redistribute the material in any medium or format) and adapt (remix, transform, and build upon the material) for any purpose, even commercially, as long as appropriate credit is given, a link to the license is provided, and any changes that were made are indicated. This aligns with our goal of facilitating progress in the field by providing a resource for researchers to build upon. 
 
