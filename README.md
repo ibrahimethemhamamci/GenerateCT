@@ -132,6 +132,9 @@ In our evaluation process, we employed various metrics to assess the performance
 
 Feel free to explore these metrics to gain a comprehensive understanding of the quality and performance of our generated CT volumes.
 
+## Citing Us
+If you use GenerateCT, we would appreciate your references to [our paper](https://arxiv.org/abs/2305.16037).
+
 
 ## License
 Our work, including the codes, trained models, and generated data, is released under a [Creative Commons Attribution (CC-BY) license](https://creativecommons.org/licenses/by/4.0/). This means that anyone is free to share (copy and redistribute the material in any medium or format) and adapt (remix, transform, and build upon the material) for any purpose, even commercially, as long as appropriate credit is given, a link to the license is provided, and any changes that were made are indicated. This aligns with our goal of facilitating progress in the field by providing a resource for researchers to build upon. 
