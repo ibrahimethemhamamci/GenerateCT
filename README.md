@@ -133,7 +133,30 @@ In our evaluation process, we employed various metrics to assess the performance
 Feel free to explore these metrics to gain a comprehensive understanding of the quality and performance of our generated CT volumes.
 
 ## Citing Us
-If you use GenerateCT, we would appreciate your references to [our paper](https://arxiv.org/abs/2305.16037).
+When using this resource, please consider citing the following related papers:
+
+```
+1. @article{hamamci2023generatect,
+  title={GenerateCT: Text-Conditional Generation of 3D Chest CT Volumes},
+  author={Hamamci, Ibrahim Ethem and Er, Sezgin and Sekuboyina, Anjany and Simsar, Enis and Tezcan, Alperen and Simsek, Ayse Gulnihan and Esirgun, Sevval Nil and Almas, Furkan and Dogan, Irem and Dasdelen, Muhammed Furkan and others},
+  journal={arXiv preprint arXiv:2305.16037},
+  year={2023}
+}
+
+2. @article{hamamci2024foundation,
+  title={A foundation model utilizing chest CT volumes and radiology reports for supervised-level zero-shot detection of abnormalities},
+  author={Hamamci, Ibrahim Ethem and Er, Sezgin and Almas, Furkan and Simsek, Ayse Gulnihan and Esirgun, Sevval Nil and Dogan, Irem and Dasdelen, Muhammed Furkan and Wittmann, Bastian and Simsar, Enis and Simsar, Mehmet and others},
+  journal={arXiv preprint arXiv:2403.17834},
+  year={2024}
+}
+
+3. @article{hamamci2024ct2rep,
+  title={Ct2rep: Automated radiology report generation for 3d medical imaging},
+  author={Hamamci, Ibrahim Ethem and Er, Sezgin and Menze, Bjoern},
+  journal={arXiv preprint arXiv:2403.06801},
+  year={2024}
+}
+```
 
 
 ## License
