@@ -104,13 +104,13 @@ You can download the models from the following links:
 By leveraging these pretrained models, you can easily reproduce our results or further extend our work.
 
 
-## Example Data
+## Training Data
 
 Explore and experiment with our example data, specifically curated for training the CT-ViT, Transformer, and Super Resolution Diffusion networks.
 
 - [Download Example Data](https://huggingface.co/generatect/GenerateCT/resolve/main/example_data.zip)
 
-Feel free to utilize this example data to gain insights into the training process of the components of GenerateCT.
+To access all 3D chest CT volumes and radiology reports used in the development of GenerateCT, please see [the CT-RATE dataset](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE).
 
 
 ## Generated Data
