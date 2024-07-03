@@ -110,7 +110,7 @@ Explore and experiment with our example data, specifically curated for training 
 
 - [Download Example Data](https://huggingface.co/generatect/GenerateCT/resolve/main/example_data.zip)
 
-To access all 3D chest CT volumes and radiology reports used in the development of GenerateCT, please visit [CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE).
+To access all 3D chest CT volumes and corresponding radiology reports used in the development of GenerateCT, please visit [CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE).
 
 
 ## Generated Data
